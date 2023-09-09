@@ -21,10 +21,10 @@ public class LoginController {
 		Optional<Member> member = memberService.login(id, pwd);
 		if (member.isPresent()) {
 			model.addAttribute("member", member.get());
-			return "welcome";
+			return "login/welcome";
 		} else {
 			model.addAttribute("error", "Invalid username or password");
-			return "login";
+			return "login/login_form";
 		}
 	}
 }
