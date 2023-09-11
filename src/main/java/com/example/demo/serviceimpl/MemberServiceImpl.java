@@ -16,8 +16,8 @@ public class MemberServiceImpl implements MemberService {
 	private MemberRepository memberRepository;
 
 	@Override
-	public Optional<Member> login(String id, String pwd) {
-		return memberRepository.findByIdAndPwd(id, pwd);
+	public Optional<Member> login(String mid, String mpwd) {
+		return memberRepository.findByMidAndMpwd(mid, mpwd);
 	}
 
 }

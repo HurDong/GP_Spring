@@ -23,26 +23,26 @@ import lombok.ToString;
 @ToString
 public class Member {
 	@Id
-	@Column(name = "ID", nullable = false, length = 50)
-	private String id;
+	@Column(name = "MID", nullable = false, length = 50)
+	private String mid;
 
-	@Column(name = "PWD", length = 50)
-	private String pwd;
+	@Column(name = "MPWD", length = 50)
+	private String mpwd;
 
-	@Column(name = "NAME", length = 50)
-	private String name;
+	@Column(name = "MNAME", length = 50)
+	private String mname;
 
-	@Column(name = "BIRTH")
-	private Date birth;
+	@Column(name = "MBIRTH")
+	private Date mbirth;
 
-	@Column(name = "GENDER")
-	private Integer gender;
+	@Column(name = "MGENDER")
+	private Integer mgender;
 
-	@Column(name = "TEL", length = 50)
-	private String tel;
+	@Column(name = "MTEL", length = 50)
+	private String mtel;
 
-	@Column(name = "POS", length = 50)
-	private String pos;
+	@Column(name = "MPOS", length = 50)
+	private String mpos;
 
 	@Column(name = "FNAME", nullable = false, length = 50)
 	private String fname;

@@ -29,22 +29,22 @@ public class Post {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "POST_NO_SEQ")
 	@SequenceGenerator(name = "POST_NO_SEQ", sequenceName = "POST_NO_SEQ", allocationSize = 1)
-	@Column(name = "NO", nullable = false)
-	private Long no;
+	@Column(name = "PNO", nullable = false)
+	private Long pno;
 
-	@Column(name = "TITLE", length = 50)
-	private String title;
+	@Column(name = "PTITLE", length = 50)
+	private String ptitle;
 
-	@Column(name = "CONTENT", length = 100)
-	private String content;
+	@Column(name = "PCONTENT", length = 100)
+	private String pcontent;
 
-	@Column(name = "REGDATE")
-	private Date regDate;
+	@Column(name = "PREGDATE")
+	private Date pregDate;
 
-	@Column(name = "LOCATION", length = 50)
-	private String location;
+	@Column(name = "PLOCATION", length = 50)
+	private String plocation;
 
 	@ManyToOne
-	@JoinColumn(name = "ID", insertable = false, updatable = false)
+	@JoinColumn(name = "MID", insertable = false, updatable = false)
 	private Member member;
 }

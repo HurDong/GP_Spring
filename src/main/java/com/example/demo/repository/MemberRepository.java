@@ -9,5 +9,5 @@ import com.example.demo.entity.Member;
 
 @Repository
 public interface MemberRepository extends JpaRepository<Member, String> {
-	Optional<Member> findByIdAndPwd(String id, String pwd);
+	Optional<Member> findByMidAndMpwd(String mid, String mpwd);
 }

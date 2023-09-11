@@ -8,6 +8,6 @@
 <title>로그인 성공!</title>
 </head>
 <body>
-	<h1>Welcome, ${member.name}!</h1>
+	<h1>Welcome, ${member.mname}!</h1>
 </body>
 </html>

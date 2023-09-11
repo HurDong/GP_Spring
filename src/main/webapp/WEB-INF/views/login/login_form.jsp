@@ -9,9 +9,10 @@
 </head>
 <body>
 	<form action="/login" method="post">
-		ID: <input type="text" name="id"><br> Password: <input
-			type="password" name="pwd"><br>
-		<button type="submit">Login</button>
+		아이디 : <input type="text" name="mid"><br> 비밀번호 : <input
+			type="password" name="mpwd"><br>
+		<button type="submit">로 그 인</button>
+		<button type="button" onclick="window.location.href='/register'">회원가입</button>
 	</form>
 	<c:if test="${not empty error}">
 		<div style="color: red;">${error}</div>
