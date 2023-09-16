@@ -1,12 +1,10 @@
 package com.example.demo.entity;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,7 +26,4 @@ public class Friend {
 
 	@Column(name = "FPOS", length = 50)
 	private String fpos;
-
-	@OneToMany(mappedBy = "friend")
-	private List<Member> members;
 }

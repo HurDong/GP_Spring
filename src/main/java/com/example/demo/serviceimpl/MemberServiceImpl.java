@@ -20,4 +20,9 @@ public class MemberServiceImpl implements MemberService {
 		return memberRepository.findByMidAndMpwd(mid, mpwd);
 	}
 
+	@Override
+	public void registerMember(Member member) {
+		  memberRepository.save(member);		
+	}
+
 }

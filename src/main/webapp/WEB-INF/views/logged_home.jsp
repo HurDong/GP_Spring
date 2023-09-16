@@ -57,6 +57,7 @@ button:focus {
 	width: 85%;
 	height: 100%;
 	float: left;
+	position: relative;
 }
 
 #address-container {
@@ -128,23 +129,15 @@ button:focus {
 </style>
 </head>
 <body>
-	<!-- 	<a href="javascript:location.reload()"> <img id="siteLogo"
-		src="https://github.com/HurDong/img/blob/main/Where_to_kakao_logo.png?raw=true"
-		alt="사이트 로고">
-	</a> -->
-
 	<div id="nav-bar">
 		<button id="meet-button">❓어디서 만나❓</button>
 		<button id="reset-button">✨마커 초기화✨</button>
 		<button id="search-restaurants">🔍맛집 검색🔍</button>
 		<button id="login-button">
-			<a href="login" style="text-decoration: none; color: inherit;">🔐로그인🔐</a>
+			<a href="logout" style="text-decoration: none; color: inherit;">🔐로그아웃🔐</a>
 		</button>
-		<button id="community-button">
-			<a href="community" style="text-decoration: none; color: inherit;">👥커뮤니티👥</a>
-		</button>
+		<button id="community">👥커뮤니티👥</button>
 	</div>
-
 	<input type="text" id="search-box" placeholder="주소를 입력해주세요." />
 	<div id="map"></div>
 	<div id="restaurant-section">

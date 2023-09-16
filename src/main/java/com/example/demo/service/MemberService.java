@@ -6,4 +6,6 @@ import com.example.demo.entity.Member;
 
 public interface MemberService {
 	Optional<Member> login(String mid, String mpwd);
+	
+	void registerMember(Member member);
 }
