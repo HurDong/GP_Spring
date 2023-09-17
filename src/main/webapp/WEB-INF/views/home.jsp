@@ -140,8 +140,8 @@ button:focus {
 		<button id="login-button">
 			<a href="login" style="text-decoration: none; color: inherit;">🔐로그인🔐</a>
 		</button>
-		<button id="community-button">
-			<a href="community" style="text-decoration: none; color: inherit;">👥커뮤니티👥</a>
+		<button id="post-button">
+			<a href="post" style="text-decoration: none; color: inherit;">👥커뮤니티👥</a>
 		</button>
 	</div>
 

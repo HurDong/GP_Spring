@@ -5,5 +5,9 @@ import java.util.List;
 import com.example.demo.entity.Post;
 
 public interface PostService {
-	List<Post> findAllPosts();
+	public Post savePost(Post post);
+
+	List<Post> getAllPosts();
+
+	Post getPostById(Long id);
 }

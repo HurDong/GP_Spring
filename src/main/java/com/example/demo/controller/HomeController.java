@@ -31,10 +31,4 @@ public class HomeController {
 			return "home";
 		}
 	}
-
-	@GetMapping("/community")
-	public String community() {
-		return "community/community";
-	}
-
 }

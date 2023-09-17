@@ -39,10 +39,13 @@ public class Post {
 	private String pcontent;
 
 	@Column(name = "PREGDATE")
-	private Date pregDate;
+	private Date pregdate;
 
 	@Column(name = "PLOCATION", length = 50)
 	private String plocation;
+	
+	@Column(name = "PRATING", length = 1)
+	private Long prating;
 
 	@ManyToOne
 	@JoinColumn(name = "MID", insertable = false, updatable = false)

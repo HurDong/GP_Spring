@@ -136,7 +136,9 @@ button:focus {
 		<button id="login-button">
 			<a href="logout" style="text-decoration: none; color: inherit;">🔐로그아웃🔐</a>
 		</button>
-		<button id="community">👥커뮤니티👥</button>
+		<button id="post-button">
+			<a href="post" style="text-decoration: none; color: inherit;">👥커뮤니티👥</a>
+		</button>
 	</div>
 	<input type="text" id="search-box" placeholder="주소를 입력해주세요." />
 	<div id="map"></div>
