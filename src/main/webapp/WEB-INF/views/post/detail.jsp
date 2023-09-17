@@ -108,9 +108,9 @@ button:focus {
 </head>
 <body>
 	<div id="nav-bar">
-		<button id="meet-button">❓어디서 만나❓</button>
-		<button id="reset-button">✨마커 초기화✨</button>
-		<button id="search-restaurants">🔍맛집 검색🔍</button>
+		<button id="meet-button">
+			<a href="home" style="text-decoration: none; color: inherit;">🏠메인으로🏠</a>
+		</button>
 		<button id="login-button">
 			<a href="login" style="text-decoration: none; color: inherit;">🔐로그인🔐</a>
 		</button>
@@ -122,9 +122,9 @@ button:focus {
 		<div class="card">
 			<div class="card-body">
 				<h5 class="card-title">${post.ptitle}</h5>
-				<p class="card-text">Location: ${post.plocation}</p>
-				<p class="card-text">Rating: ${post.prating}</p>
-				<p class="card-text">Date: ${post.pregdate}</p>
+				<p class="card-text">위 치 : ${post.plocation}</p>
+				<p class="card-text">평 점: ${post.prating}</p>
+				<p class="card-text">작 성 일 시 : ${post.pregdate}</p>
 				<%
 				String content = null;
 				Object postObject = request.getAttribute("post");
@@ -136,13 +136,13 @@ button:focus {
 				}
 				%>
 				<p class="card-text" style="border-bottom: none;">
-					Content:<br />
+					내 용 :<br />
 					<%=content%>
 				</p>
 
 			</div>
 		</div>
-		<a href="/post" class="btn btn-primary back-to-list">Back to List</a>
+		<a href="/post" class="btn btn-primary back-to-list">목 록 으 로 돌 아 가 기</a>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 	<script

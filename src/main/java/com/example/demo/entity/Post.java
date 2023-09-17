@@ -11,6 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,6 +42,7 @@ public class Post {
 	private String pcontent;
 
 	@Column(name = "PREGDATE")
+	@CreationTimestamp
 	private Date pregdate;
 
 	@Column(name = "PLOCATION", length = 50)
@@ -48,6 +52,6 @@ public class Post {
 	private Long prating;
 
 	@ManyToOne
-	@JoinColumn(name = "MID", insertable = false, updatable = false)
+	@JoinColumn(name = "MID", insertable = true, updatable = true)
 	private Member member;
 }

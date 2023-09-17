@@ -22,7 +22,11 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public void registerMember(Member member) {
-		  memberRepository.save(member);		
+		memberRepository.save(member);
 	}
 
+	@Override
+	public Member findMemberById(String memberId) {
+		return memberRepository.findById(memberId).orElse(null);
+	}
 }

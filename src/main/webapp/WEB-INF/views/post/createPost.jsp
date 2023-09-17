@@ -4,8 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>커뮤니티</title>
+<title>게시물 작성</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 <style>
@@ -56,21 +55,16 @@ button:focus {
 	outline: none;
 }
 
-.table thead th, .table tbody td {
-	text-align: center;
-}
-
 .container {
-	margin-top: 50px
+	margin-top: 80px;
 }
 </style>
 </head>
 <body>
 	<div id="nav-bar">
-		<button id="meet-button">
-			<a href="home" style="text-decoration: none; color: inherit;">🏠메인으로🏠</a>
-		</button>
 		<button id="meet-button">❓어디서 만나❓</button>
+		<button id="reset-button">✨마커 초기화✨</button>
+		<button id="search-restaurants">🔍맛집 검색🔍</button>
 		<button id="login-button">
 			<a href="login" style="text-decoration: none; color: inherit;">🔐로그인🔐</a>
 		</button>
@@ -79,35 +73,26 @@ button:focus {
 		</button>
 	</div>
 	<div class="container">
-		<div class="header">
-			<h1 style="display: inline-block;">게시물 목록</h1>
-			<a href="/createPost" class="btn btn-primary" style="float: right;">게시물
-				작성</a>
-		</div>
-		<table class="table">
-			<thead>
-				<tr>
-					<th>게시물 번호</th>
-					<th>게시물 제목</th>
-					<th>위치</th>
-					<th>평점</th>
-					<th>작성일시</th>
-					<th>자세히보기</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="post" items="${posts}">
-					<tr>
-						<td>${post.pno}</td>
-						<td>${post.ptitle}</td>
-						<td>${post.plocation}</td>
-						<td>${post.prating}</td>
-						<td>${post.pregdate}</td>
-						<td><a href="/post/${post.pno}">View</a></td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
+		<h1 style="margin-bottom: 20px;">게시물을 작성해보세요!</h1>
+		<form action="/createPost" method="post">
+			<div class="form-group">
+				<label for="ptitle">제 목</label> <input type="text"
+					class="form-control" id="ptitle" name="ptitle">
+			</div>
+			<div class="form-group">
+				<label for="pcontent">내 용</label>
+				<textarea class="form-control" id="pcontent" name="pcontent"></textarea>
+			</div>
+			<div class="form-group">
+				<label for="plocation">도 로 명 주 소</label> <input type="text"
+					class="form-control" id="plocation" name="plocation">
+			</div>
+			<div class="form-group">
+				<label for="prating">평 점</label> <input type="number"
+					class="form-control" id="prating" name="prating" min="1" max="5">
+			</div>
+			<button type="submit" class="btn btn-primary">작 성 완 료</button>
+		</form>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 	<script
