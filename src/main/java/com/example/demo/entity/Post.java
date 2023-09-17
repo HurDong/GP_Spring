@@ -38,14 +38,14 @@ public class Post {
 	@Column(name = "PTITLE", length = 50)
 	private String ptitle;
 
-	@Column(name = "PCONTENT", length = 100)
+	@Column(name = "PCONTENT", length = 255)
 	private String pcontent;
 
 	@Column(name = "PREGDATE")
 	@CreationTimestamp
 	private Date pregdate;
 
-	@Column(name = "PLOCATION", length = 50)
+	@Column(name = "PLOCATION", length = 255)
 	private String plocation;
 	
 	@Column(name = "PRATING", length = 1)
