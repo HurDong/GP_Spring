@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.util.Base64;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -16,21 +17,20 @@ import com.example.demo.entity.Member;
 import com.example.demo.entity.Post;
 import com.example.demo.service.MemberService;
 import com.example.demo.service.PostService;
+import com.google.gson.Gson;
 
 @Controller
 public class PostController {
 	@Autowired
 	private PostService postService;
-	
+
 	@Autowired
 	private MemberService memberService;
 
 	@GetMapping("/createPost")
-	public String createPostForm(Model model,HttpSession session) {
+	public String createPostForm(Model model, HttpSession session) {
 		String memberId = (String) session.getAttribute("memberId");
-		System.out.println(memberId);
-		if(memberId == null)
-		{
+		if (memberId == null) {
 			return "redirect:login";
 		}
 		model.addAttribute("post", new Post());
@@ -67,6 +67,10 @@ public class PostController {
 	public String viewPost(@PathVariable Long id, Model model) {
 		Post post = postService.getPostById(id);
 		model.addAttribute("post", post);
+		Gson gson = new Gson();
+		String jsonStores = gson.toJson(post);
+		String encodedJsonStr = Base64.getEncoder().encodeToString(jsonStores.getBytes());
+		model.addAttribute("stores", encodedJsonStr);
 		return "post/detail";
 	}
 }

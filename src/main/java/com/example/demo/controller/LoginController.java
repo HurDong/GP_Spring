@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class LoginController {
 
 	@PostMapping("/login")
 	public String login(@RequestParam String mid, @RequestParam String mpwd, Model model, RedirectAttributes redirect,
-			HttpSession session) {
+			HttpSession session, HttpServletRequest request) {
 		Optional<Member> member = memberService.login(mid, mpwd);
 		String memberId = (String) session.getAttribute("memberId");
 		if (memberId != null) {
@@ -35,7 +36,8 @@ public class LoginController {
 		if (member.isPresent()) {
 			model.addAttribute("member", member.get());
 			session.setAttribute("memberId", member.get().getMid());
-			return "login/welcome";
+			String referer = request.getHeader("Referer");
+			return "redirect:" + referer;
 		} else {
 			model.addAttribute("error", "아이디 또는 비밀번호가 틀렸습니다!");
 			return "login/login_form";

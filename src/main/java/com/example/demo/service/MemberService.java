@@ -10,4 +10,6 @@ public interface MemberService {
 	void registerMember(Member member);
 
 	Member findMemberById(String memberId);
+
+	void updateLocation(String memberId, String postcode, String roadAddress, String jibunAddress);
 }

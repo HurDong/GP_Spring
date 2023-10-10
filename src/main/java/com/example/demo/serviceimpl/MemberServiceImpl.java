@@ -29,4 +29,19 @@ public class MemberServiceImpl implements MemberService {
 	public Member findMemberById(String memberId) {
 		return memberRepository.findById(memberId).orElse(null);
 	}
+
+	@Override
+	public void updateLocation(String memberId, String postcode, String roadAddress, String jibunAddress) {
+		Optional<Member> optionalMember = memberRepository.findById(memberId);
+		if (optionalMember.isPresent()) {
+			Member member = optionalMember.get();
+			member.setPostcode(postcode);
+			member.setRoadAddress(roadAddress);
+			member.setJibunAddress(jibunAddress);
+			memberRepository.save(member);
+		} else {
+			throw new IllegalArgumentException("해당하는 회원이 없습니다.");
+		}
+
+	}
 }

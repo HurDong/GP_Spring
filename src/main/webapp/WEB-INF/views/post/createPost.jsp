@@ -62,14 +62,11 @@ button:focus {
 </head>
 <body>
 	<div id="nav-bar">
-		<button id="meet-button">❓어디서 만나❓</button>
-		<button id="reset-button">✨마커 초기화✨</button>
-		<button id="search-restaurants">🔍맛집 검색🔍</button>
-		<button id="login-button">
-			<a href="login" style="text-decoration: none; color: inherit;">🔐로그인🔐</a>
+		<button id="meet-button">
+			<a href="home" style="text-decoration: none; color: inherit;">🏠메인으로🏠</a>
 		</button>
-		<button id="community-button">
-			<a href="community" style="text-decoration: none; color: inherit;">👥커뮤니티👥</a>
+		<button id="post-button">
+			<a href="post" style="text-decoration: none; color: inherit;">👥커뮤니티👥</a>
 		</button>
 	</div>
 	<div class="container">

@@ -31,10 +31,14 @@ public class Member {
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date mbirth;
-
-	private Integer mgender;
-
+	
 	private String mtel;
+
+	private String postcode;
+
+	private String roadAddress;
+
+	private String jibunAddress;
 
 	private String mpos;
 }

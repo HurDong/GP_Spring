@@ -70,12 +70,11 @@ button:focus {
 		<button id="meet-button">
 			<a href="home" style="text-decoration: none; color: inherit;">🏠메인으로🏠</a>
 		</button>
-		<button id="meet-button">❓어디서 만나❓</button>
 		<button id="login-button">
 			<a href="login" style="text-decoration: none; color: inherit;">🔐로그인🔐</a>
 		</button>
-		<button id="community-button">
-			<a href="community" style="text-decoration: none; color: inherit;">👥커뮤니티👥</a>
+		<button id="mypage-button">
+			<a href="mypage" style="text-decoration: none; color: inherit;">👥마이페이지👥</a>
 		</button>
 	</div>
 	<div class="container">

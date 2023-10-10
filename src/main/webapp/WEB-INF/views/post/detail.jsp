@@ -105,17 +105,19 @@ button:focus {
 	background-color: #000; /* 호버 시 배경색을 약간 어둡게 변경 */
 }
 </style>
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=14b45607c24e81b779e6418cf489de08&libraries=services"></script>
 </head>
 <body>
 	<div id="nav-bar">
-		<button id="meet-button">
-			<a href="home" style="text-decoration: none; color: inherit;">🏠메인으로🏠</a>
+		<button id="home-button">
+			<a href="/home" style="text-decoration: none; color: inherit;">🏠메인으로🏠</a>
 		</button>
 		<button id="login-button">
-			<a href="login" style="text-decoration: none; color: inherit;">🔐로그인🔐</a>
+			<a href="/login" style="text-decoration: none; color: inherit;">🔐로그인🔐</a>
 		</button>
-		<button id="community-button">
-			<a href="community" style="text-decoration: none; color: inherit;">👥커뮤니티👥</a>
+		<button id="post-button">
+			<a href="/post" style="text-decoration: none; color: inherit;">👥커뮤니티👥</a>
 		</button>
 	</div>
 	<div class="container">
@@ -125,29 +127,52 @@ button:focus {
 				<p class="card-text">위 치 : ${post.plocation}</p>
 				<p class="card-text">평 점: ${post.prating}</p>
 				<p class="card-text">작 성 일 시 : ${post.pregdate}</p>
-				<%
-				String content = null;
-				Object postObject = request.getAttribute("post");
-				if (postObject instanceof com.example.demo.entity.Post) {
-					com.example.demo.entity.Post postEntity = (com.example.demo.entity.Post) postObject;
-					if (postEntity.getPcontent() != null) {
-						content = postEntity.getPcontent().replace("\n", "<br/>");
-					}
-				}
-				%>
-				<p class="card-text" style="border-bottom: none;">
-					내 용 :<br />
-					<%=content%>
-				</p>
 
+				<p class="card-text" style="border-bottom: none;">
+					내 용 :<br />${post.pcontent}
+
+				</p>
+				<div>
+					<div id="map" style="width: 100%; height: 440px;"></div>
+				</div>
 			</div>
 		</div>
-		<a href="/post" class="btn btn-primary back-to-list">목 록 으 로 돌 아 가 기</a>
+		<a href="/post" class="btn btn-primary back-to-list">목 록 으 로 돌 아 가
+			기</a>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script>
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+    mapOption = {
+        center : new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level : 3 // 지도의 확대 레벨
+    };
+    var map = new kakao.maps.Map(mapContainer, mapOption);
+    var geocoder = new kakao.maps.services.Geocoder();
+
+    // 주소-좌표 변환 객체를 생성합니다
+    var geocoder = new kakao.maps.services.Geocoder();
+
+    // 주소로 좌표를 검색합니다
+    geocoder.addressSearch('${post.plocation}', function(result, status) {
+
+        // 정상적으로 검색이 완료됐으면 
+        if (status === kakao.maps.services.Status.OK) {
+
+            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+            var marker = new kakao.maps.Marker({
+				map : map,
+				position : coords,
+			});  
+            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+            map.setCenter(coords);
+        } 
+    });    
+</script>
+
 </body>
 </html>
