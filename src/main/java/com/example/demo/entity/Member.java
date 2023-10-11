@@ -40,5 +40,5 @@ public class Member {
 
 	private String jibunAddress;
 
-	private String mpos;
+	/* private String mpos; */
 }

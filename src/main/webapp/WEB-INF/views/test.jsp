@@ -3,164 +3,125 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>중간 지점 찾기</title>
+<title>테스트</title>
+<!-- Add Bootstrap CSS -->
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	rel="stylesheet">
 <style>
-html, body {
-	height: 100%;
-	margin: 0;
-	padding: 0;
-	overflow: hidden;
-}
-
-#nav-bar {
-	display: flex;
-	justify-content: space-around;
-	background-color: #ffcd36;
-	height: 50px;
-	line-height: 50px;
-}
-
-#nav-bar button {
+.nav-item {
 	flex: 1;
-	margin: 0;
 	border-right: 1px solid #000;
 	text-align: center;
 }
 
-#nav-bar button:last-child {
-	border-right: none;
+.nav-item:first-child {
+	border-left: 1px solid #000;
 }
 
-button {
-	background-color: #ffcd36;
-	border: none;
-	border-radius: 3px;
-	color: #302A24;
-	cursor: pointer;
-	font-size: 16px;
-	margin-top: 10px;
-	padding: 10px 20px;
-	transition: background-color 0.3s;
+.nav-link {
+	font-weight: 100;
+	text-shadow: 0px 0px 1px #000;
 }
 
-button:hover {
-	background-color: #302A24;
-	color: #fff;
+.nav-link:hover {
+	font-weight: 200;
+	text-shadow: 0px 0px 3px #000;
 }
-
-button:focus {
-	outline: none;
-}
-
-#map {
-	width: 85%;
-	height: 100%;
-	float: left;
-}
-
-#address-container {
-	width: 15%;
-	height: 100%;
-	float: right;
-}
-
-#address-container h2 {
-	margin-left: 20px;
-}
-
-#search-box {
+/* Map Container */
+#map-container {
 	position: relative;
-	z-index: 2;
-	top: 0;
 	width: 100%;
-	padding: 10px;
+	height: 100vh; /* 높이는 원하는 값으로 설정 */
 }
 
-#address-list {
-	margin-top: 20px;
-	padding: 10px;
-	border: 1px solid #888;
-	border-radius: 5px;
-	background-color: #fff;
-}
-
-#address-list li, #restaurant-list li {
-	margin: 10px 0;
-	padding: 10px;
-	border: 1px solid #ddd;
-	border-radius: 5px;
-	background-color: #f0f0f0;
-	color: #333;
-	transition: background-color 0.2s;
-}
-
-#address-list li:hover, #restaurant-list li:hover {
-	background-color: #ddd;
-}
-
-#restaurant-list-container {
-	max-height: 400px;
-	overflow-y: auto;
-}
-
-#restaurant-list-navigation {
-	display: flex;
-	justify-content: space-between;
-	margin-bottom: 20px;
-}
-
-#center-address-container {
-	margin-top: 20px;
-	padding: 10px;
-	font-size: 1.2em;
-	border: 1px solid #888;
-	border-radius: 5px;
-	background-color: #eee;
-	color: #333;
-}
-
-#siteLogo {
+/* Map */
+#map {
 	position: absolute;
-	width: 100px;
-	z-index: 150;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 }
 </style>
 </head>
+
 <body>
-	<div id="nav-bar">
-		<button id="meet-button">❓어디서 만나❓</button>
-		<button id="reset-button">✨마커 초기화✨</button>
-		<button id="search-restaurants">🔍맛집 검색🔍</button>
-		<button id="login-button">
-			<a href="login" style="text-decoration: none; color: inherit;">🔐로그인🔐</a>
+
+	<!-- Navigation Bar -->
+	<nav class="navbar navbar-expand-lg navbar-light bg-warning">
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarNav" aria-controls="navbarNav"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
 		</button>
-		<button id="post-button">
-			<a href="post" style="text-decoration: none; color: inherit;">👥커뮤니티👥</a>
-		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav" style="width: 100%;">
+				<li class="nav-item"><a class="nav-link" href="#">❓어디서 만나❓</a>
+				</li>
+				<li class="nav-item"><a class="nav-link" href="#">✨마커 초기화✨</a>
+				</li>
+				<li class="nav-item"><a class="nav-link" href="#">🔍맛집 검색🔍</a>
+				</li>
+				<li class="nav-item"><a class="nav-link" href="login">🔐로그인🔐</a>
+				</li>
+				<li class="nav-item"><a class="nav-link" href="post">👥커뮤니티👥</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+
+
+	<!-- Main Content -->
+	<div class="container-fluid">
+		<div class="row">
+			<!-- Search Box -->
+			<div class="col-12">
+				<input type="text" class="form-control" id="search-box"
+					placeholder="주소를 입력해주세요." />
+			</div>
+
+			<!-- Map Section -->
+			<div class="col-lg-9" id="map-container">
+				<div id="map"></div>
+			</div>
+
+			<!-- Side Section -->
+			<div class="col-lg-3">
+				<!-- Restaurant List -->
+				<div id="restaurant-section" class="mt-4">
+					<h3>🍽️맛집 리스트🍽️</h3>
+					<div class="btn-group" id="restaurant-list-navigation">
+						<button class="btn btn-secondary" id="prev-restaurants">이전</button>
+						<button class="btn btn-secondary" id="next-restaurants">다음</button>
+					</div>
+				</div>
+
+				<!-- Center Address -->
+				<div id="center-address-container" class="mt-4 p-3 bg-light rounded">
+					<h2>🙌중간 지점 주소🙌</h2>
+					<p id="center-address" data-lat="" data-lng=""></p>
+				</div>
+
+				<!-- Added Addresses -->
+				<div id="address-container" class="mt-4">
+					<h2>➕추가된 주소➕</h2>
+					<ul id="address-list" class="list-group"></ul>
+				</div>
+			</div>
+		</div>
 	</div>
 
-	<input type="text" id="search-box" placeholder="주소를 입력해주세요." />
-	<div id="map"></div>
-	<div id="restaurant-section">
-		<h3>🍽️맛집 리스트🍽️</h3>
-		<div id="restaurant-list-navigation">
-			<button id="prev-restaurants">이전</button>
-			<button id="next-restaurants">다음</button>
-		</div>
-		<div id="restaurant-list-container">
-			<ul id="restaurant-list"></ul>
-		</div>
-	</div>
 
-	<div id="center-address-container">
-		<h2>🙌중간 지점 주소🙌</h2>
-		<p id="center-address" data-lat="" data-lng=""></p>
-	</div>
-	<div id="address-container">
-		<h2>➕추가된 주소➕</h2>
-		<ul id="address-list"></ul>
-	</div>
+
+
+
+	<!-- Add Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bf86d69b1c14441be58bc12392391dbc&libraries=services"></script>
 	<script>

@@ -22,6 +22,10 @@ public class HomeController {
 		}
 		return "home";
 	}
+	@GetMapping("/test")
+	public String test() {
+		return "test";
+	}
 
 	@GetMapping("/login")
 	public String login(HttpSession session) {

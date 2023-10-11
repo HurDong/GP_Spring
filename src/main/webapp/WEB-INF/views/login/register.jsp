@@ -38,22 +38,11 @@
 									required>
 							</div>
 							<div class="mb-3">
-								<label class="form-label">성별</label>
-								<div class="form-check">
-									<input type="radio" class="form-check-input" id="male"
-										name="mgender" value="0" required> <label
-										class="form-check-label" for="male">남자</label>
-								</div>
-								<div class="form-check">
-									<input type="radio" class="form-check-input" id="female"
-										name="mgender" value="1" required> <label
-										class="form-check-label" for="female">여자</label>
-								</div>
-							</div>
-							<div class="mb-3">
 								<label for="mtel" class="form-label">전화번호</label> <input
-									type="text" class="form-control" id="mtel" name="mtel" required>
+									type="text" class="form-control" id="mtel" name="mtel" required
+									pattern="[0-9]{11}"	placeholder="'-'를 빼고 입력해주세요." maxlength="11">
 							</div>
+
 							<div class="d-grid gap-2">
 								<button type="submit" class="btn btn-primary">회원가입</button>
 							</div>

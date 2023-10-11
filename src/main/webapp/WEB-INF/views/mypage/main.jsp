@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,14 +74,15 @@ button:focus {
 		<h1>회원 정보</h1>
 		<p>아이디: ${member.mid}</p>
 		<p>이름: ${member.mname}</p>
-		<p>생일: ${member.mbirth}</p>
+		<p>생일: <fmt:formatDate value="${member.mbirth}" pattern="yyyy-MM-dd" /></p>
+
 		<p>전화번호: ${member.mtel}</p>
-		<p>내 위치: ${member.mpos}</p>
+		<p>내 위치: ${member.roadAddress}</p>
 		<!-- 위치가 null일 경우 위치 등록하기 버튼을 보여줌 -->
-		<c:if test="${member.mpos == null}">
+		<%-- <c:if test="${member.roadAddress == null}"> --%>
 			<input type="button" onclick="sample4_execDaumPostcode()"
 				value="위치 등록하기">
-		</c:if>
+		<%-- </c:if> --%>
 	</div>
 	<script
 		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -111,6 +114,7 @@ button:focus {
 								success : function(response) {
 									// 서버에서 성공적으로 응답을 받았을 때의 처리
 									alert('위치가 성공적으로 업데이트되었습니다.');
+									window.location.reload(); 
 								},
 								error : function(error) {
 									// 에러가 발생했을 때의 처리
