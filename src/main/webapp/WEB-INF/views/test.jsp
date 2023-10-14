@@ -57,12 +57,12 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav" style="width: 100%;">
-				<li class="nav-item"><a class="nav-link" href="#">❓어디서 만나❓</a>
-				</li>
-				<li class="nav-item"><a class="nav-link" href="#">✨마커 초기화✨</a>
-				</li>
-				<li class="nav-item"><a class="nav-link" href="#">🔍맛집 검색🔍</a>
-				</li>
+				<li class="nav-item"><a class="nav-link" id="meet-button"
+					href="#">❓어디서 만나❓</a></li>
+				<li class="nav-item"><a class="nav-link" id="reset-button"
+					href="#">✨마커 초기화✨</a></li>
+				<li class="nav-item"><a class="nav-link"
+					id="search-restaurants" href="#">🔍맛집 검색🔍</a></li>
 				<li class="nav-item"><a class="nav-link" href="login">🔐로그인🔐</a>
 				</li>
 				<li class="nav-item"><a class="nav-link" href="post">👥커뮤니티👥</a>
@@ -94,6 +94,9 @@
 					<div class="btn-group" id="restaurant-list-navigation">
 						<button class="btn btn-secondary" id="prev-restaurants">이전</button>
 						<button class="btn btn-secondary" id="next-restaurants">다음</button>
+						<div id="restaurant-list-container">
+							<ul id="restaurant-list"></ul>
+						</div>
 					</div>
 				</div>
 
@@ -422,8 +425,8 @@
 	let currentRestaurantPage = 0;
 	const restaurantsPerPage = 5;
 	let restaurants = []; // 이 배열은 실제 맛집 데이터를 포함해야 합니다.
-
-	function showRestaurants() {
+	/* function showRestaurants() {
+		console.log(restaurants);
 	  const start = currentRestaurantPage * restaurantsPerPage;
 	  const end = start + restaurantsPerPage;
 
@@ -443,7 +446,46 @@
 	    });
 	    restaurantList.appendChild(li);
 	  }
-	}
+	} */
+ /* 	function showRestaurants() {
+	  const restaurantList = document.getElementById("restaurant-list");
+	  restaurantList.innerHTML = ""; // 목록을 비웁니다.
+	  for (let i = 0; i < restaurants.length; i++) {
+	    const restaurant = restaurants[i];
+	    const li = document.createElement("li");
+	    
+	    console.log("Before setting textContent: ", li.textContent);
+	    li.textContent = `${i + 1}. ${restaurant.place_name} - ${restaurant.address_name}`;
+	    console.log("After setting textContent: ", li.textContent);
+
+
+ 	    li.addEventListener("click", function () {
+	    map.panTo(restaurantMarkers[i].getPosition());
+	   	}); 
+	    restaurantList.appendChild(li);
+
+		}
+	} */
+	function showRestaurants() {
+		  const restaurantList = document.getElementById("restaurant-list");
+		  restaurantList.innerHTML = ""; // 목록을 비웁니다.
+
+		  // restaurants 배열을 순회하면서 각각의 restaurant에 대한 정보를 가져옵니다.
+		  restaurants.forEach((restaurant, index) => {
+		    const li = document.createElement("li"); // 새로운 li 요소를 생성합니다.
+
+		    // li 요소의 textContent를 설정합니다.
+		    li.textContent = `${index + 2}`;
+		    // li 요소를 클릭했을 때의 이벤트 리스너를 추가합니다.
+		    li.addEventListener("click", function () {
+		      map.panTo(restaurantMarkers[index].getPosition());
+		    });
+
+		    // 생성한 li 요소를 restaurantList에 추가합니다.
+		    restaurantList.appendChild(li);
+		  });
+		}
+
 
 	document
 	  .getElementById("prev-restaurants")
