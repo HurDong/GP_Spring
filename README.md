@@ -1,7 +1,9 @@
-# KB 국민은행 IT's Your Life 최종 프로젝트
+# 졸업 프로젝트
 ```
-소상공인을 위한 개인사업자 기프티콘 발행 플랫폼 GiftHub 
+약속 장소 선정 플랫폼 '어디서 만나?'
 ```
+<img width="1377" alt="스크린샷 2023-05-24 오전 11 35 28" src="asset/main.png">
+
 ### <p align="center">Frontend</p>
 <p align="center">
   <img alt="HTML" src="https://img.shields.io/badge/HTML-E34F26.svg?&style=for-the-badge&logo=HTML5&logoColor=white"/>
@@ -29,10 +31,6 @@
     <tr>
       <th>역할</th>
       <th>종류</th>
-    </tr>
-    <tr>
-      <td>Idea Memo</td>
-      <td><img alt="RED" src ="https://img.shields.io/badge/Notion-000000.svg?&style=for-the-badge&logo=Notion&logoColor=white"/></td>
     </tr>
     <tr>
       <td>Frontend Design</td>
@@ -83,4 +81,4 @@
 <img width="1377" alt="스크린샷 2023-05-24 오전 11 35 28" src="https://github.com/kb04-GiftHub/KB04-GiftHub/blob/main/assets/%EC%A3%BC%EC%9A%94%EA%B8%B0%EB%8A%A57_%ED%8C%90%EB%A7%A4%EC%B0%A8%ED%8A%B8.PNG">
 
 ## 깃허브 페이지
-https://github.com/kb04-GiftHub/KB04-GiftHub
+https://github.com/HurDong/GP_Spring
