@@ -12,4 +12,6 @@ public interface MemberService {
 	Member findMemberById(String memberId);
 
 	void updateLocation(String memberId, String postcode, String roadAddress, String jibunAddress);
+	
+	String getRoadAddressByMid(String mid);
 }

@@ -100,6 +100,18 @@ button:focus {
 	background-color: #ddd;
 }
 
+#add-my-loc {
+	background-color: #ffcd36;
+	color: #302A24;
+	border: none;
+	border-radius: 3px;
+	padding: 10px 20px;
+	cursor: pointer;
+	position: absolute; /* 버튼을 절대 위치로 설정 */
+	bottom: 10px; /* 하단에서 10px 떨어진 위치에 배치 */
+	right: 10px; /* 우측에서 10px 떨어진 위치에 배치 */
+}
+
 #restaurant-list-container {
 	max-height: 400px;
 	overflow-y: auto;
@@ -160,7 +172,10 @@ button:focus {
 	<div id="address-container">
 		<h2>➕추가된 주소➕</h2>
 		<ul id="address-list"></ul>
+		<button id="add-my-loc" onclick="addMarkerFromAddress()">저장된
+			나의 위치 추가</button>
 	</div>
+
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bf86d69b1c14441be58bc12392391dbc&libraries=services"></script>
 	<script>
@@ -559,7 +574,42 @@ button:focus {
 	    restaurantList.appendChild(li);
 	  });
 	}
+	
+	// 전역 변수로 마커 객체 선언
+	var myLocationMarker = null;
 
+	function addMarkerFromAddress() {
+	    // 이미 마커가 추가되었다면 함수를 종료
+	    if (myLocationMarker !== null) {
+	        alert("이미 위치가 추가되었습니다.");
+	        return;
+	    }
+
+	    // 서버에서 roadAddress 가져오기
+	    fetch("/getRoadAddress")
+	    .then(response => response.text())
+	    .then(roadAddress => {
+	        // 주소로 좌표를 검색
+	        geocoder.addressSearch(roadAddress, function(result, status) {
+	            // 정상적으로 검색이 완료됐으면
+	            if (status === kakao.maps.services.Status.OK) {
+	                var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+	                // 결과값으로 받은 위치를 마커로 표시
+	                myLocationMarker = new kakao.maps.Marker({
+	                    map: map,
+	                    position: coords
+	                });
+					markers.push(myLocationMarker);
+	                // 지도의 중심을 결과값으로 받은 위치로 이동
+	                map.setCenter(coords);
+	            }
+	        });
+	    });
+	}
+
+
+	
 	</script>
 </body>
 </html>

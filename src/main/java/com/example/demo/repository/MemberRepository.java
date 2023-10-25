@@ -10,4 +10,5 @@ import com.example.demo.entity.Member;
 @Repository
 public interface MemberRepository extends JpaRepository<Member, String> {
 	Optional<Member> findByMidAndMpwd(String mid, String mpwd);
+	Member findByMid(String mid);
 }

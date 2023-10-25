@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>마이페이지</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 <style>
 html, body {
 	height: 100%;
@@ -55,6 +56,55 @@ button:hover {
 button:focus {
 	outline: none;
 }
+
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 50px;
+}
+
+.card {
+	width: 100%; /* 카드의 너비를 조절합니다 */
+	margin: 20px;
+	border: none;
+	border-radius: 20px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+	padding: 50px;
+}
+
+.card-title {
+	font-size: 40px;
+	margin-bottom: 40px;
+	border-bottom: 1px solid #eee;
+}
+
+.card-text {
+	font-size: 16px;
+	color: #555;
+	border-bottom: 1px solid #eee; /* 선으로 구분 */
+	padding-bottom: 10px; /* 텍스트와 선 사이의 간격 */
+	margin-bottom: 10px; /* 선과 다음 텍스트 사이의 간격 */
+}
+
+.back-to-list {
+	display: inline-block;
+	margin: 20px;
+	font-size: 16px;
+	width: 70%; /* 버튼의 너비를 카드와 비슷하게 조절 */
+	text-align: center;
+	color: #000; /* 글자 색상을 흰색으로 변경 */
+	background-color: #ffcd36;
+	border: 1px solid #ffcd36; /* 테두리 색상을 노란색으로 변경 */
+}
+
+.back-to-list:hover {
+	color: #fff;
+	background-color: #000; /* 호버 시 배경색을 약간 어둡게 변경 */
+}
 </style>
 </head>
 <body>
@@ -70,19 +120,20 @@ button:focus {
 		</button>
 	</div>
 	<!-- 기존의 회원 정보 표시 부분 -->
-	<div id="member-info">
-		<h1>회원 정보</h1>
-		<p>아이디: ${member.mid}</p>
-		<p>이름: ${member.mname}</p>
-		<p>생일: <fmt:formatDate value="${member.mbirth}" pattern="yyyy-MM-dd" /></p>
-
-		<p>전화번호: ${member.mtel}</p>
-		<p>내 위치: ${member.roadAddress}</p>
-		<!-- 위치가 null일 경우 위치 등록하기 버튼을 보여줌 -->
-		<%-- <c:if test="${member.roadAddress == null}"> --%>
-			<input type="button" onclick="sample4_execDaumPostcode()"
-				value="위치 등록하기">
-		<%-- </c:if> --%>
+<div class="container">
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title">회원 정보</h5>
+				<p class="card-text">아이디: ${member.mid}</p>
+				<p class="card-text">이름: ${member.mname}</p>
+				<p class="card-text">생일: <fmt:formatDate value="${member.mbirth}" pattern="yyyy-MM-dd" /></p>
+				<p class="card-text">전화번호: ${member.mtel}</p>
+				<p class="card-text">내 위치: ${member.roadAddress}</p>
+				<!-- 위치가 null일 경우 위치 등록하기 버튼을 보여줌 -->
+				<input type="button" onclick="sample4_execDaumPostcode()" value="위치 등록하기">
+			</div>
+		</div>
+		<a href="/home" class="btn btn-primary back-to-list">메인으로 돌아가기</a>
 	</div>
 	<script
 		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

@@ -44,4 +44,13 @@ public class MemberServiceImpl implements MemberService {
 		}
 
 	}
+
+	@Override
+	public String getRoadAddressByMid(String mid) {
+		Member member = memberRepository.findByMid(mid);
+		if(member != null) {
+			return member.getRoadAddress();
+		}
+		return null;
+	}
 }
