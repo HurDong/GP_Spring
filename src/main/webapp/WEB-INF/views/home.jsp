@@ -273,32 +273,40 @@ button:focus {
 
 	// 주소에 마커 추가 함수
 	function addAddressMarker(address) {
-	  var latlng = new kakao.maps.LatLng(address.y, address.x);
-	  var marker = new kakao.maps.Marker({ position: latlng });
-	  marker.setMap(map);
-	  markers.push(marker);
+		  var latlng = new kakao.maps.LatLng(address.y, address.x);
+		  var marker = new kakao.maps.Marker({ position: latlng });
+		  marker.setMap(map);
+		  markers.push(marker);
 
-	  kakao.maps.event.addListener(marker, "click", function () {
-	    displayInfowindow(marker, address.place_name);
-	  });
+		  var iwContent = '<div style="padding:5px; padding-right:20px;">' + address.place_name + '</div>';
+		  var iwRemoveable = true;
 
-	  var addressList = document.getElementById("address-list");
-	  var li = document.createElement("li");
+		  var infowindow = new kakao.maps.InfoWindow({
+		    content: iwContent,
+		    removable: iwRemoveable
+		  });
 
-	  // addressList의 현재 아이템 수를 얻어서 번호를 만듭니다.
-	  var number = addressList.getElementsByTagName("li").length + 1;
+		  kakao.maps.event.addListener(marker, "click", function () {
+		    infowindow.open(map, marker);
+		  });
 
-	  // 주소 앞에 번호를 붙여서 텍스트를 설정합니다.
-	  li.innerText =
-	    number + ". " + address.place_name + " - " + address.address_name;
+		  var addressList = document.getElementById("address-list");
+		  var li = document.createElement("li");
 
-	  li.addEventListener("click", function () {
-	    var moveLatLng = new kakao.maps.LatLng(address.y, address.x);
-	    map.panTo(moveLatLng);
-	  });
+		  // addressList의 현재 아이템 수를 얻어서 번호를 만듭니다.
+		  var number = addressList.getElementsByTagName("li").length + 1;
 
-	  addressList.appendChild(li);
-	}
+		  // 주소 앞에 번호를 붙여서 텍스트를 설정합니다.
+		  li.innerText =
+		    number + ". " + address.place_name + " - " + address.address_name;
+
+		  li.addEventListener("click", function () {
+		    var moveLatLng = new kakao.maps.LatLng(address.y, address.x);
+		    map.panTo(moveLatLng);
+		  });
+
+		  addressList.appendChild(li);
+		}
 
 	// 중간 지점 계산 버튼 클릭 이벤트
 	document.getElementById("meet-button").addEventListener("click", function () {

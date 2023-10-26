@@ -288,70 +288,50 @@ button:focus {
 
 	// 주소에 마커 추가 함수
 	function addAddressMarker(address) {
-	  var latlng = new kakao.maps.LatLng(address.y, address.x);
-	  var marker = new kakao.maps.Marker({ position: latlng });
-	  marker.setMap(map);
-	  markers.push(marker);
+		  var latlng = new kakao.maps.LatLng(address.y, address.x);
+		  var marker = new kakao.maps.Marker({
+			  position: latlng,
+			  image: new kakao.maps.MarkerImage(
+	    		  "/img/Location_Marker.png",
+	  	        new kakao.maps.Size(40, 40)
+	  	      )
+		  });
+		  marker.setMap(map);
+		  markers.push(marker);
 
-	  kakao.maps.event.addListener(marker, "click", function () {
-	    displayInfowindow(marker, address.place_name);
-	  });
+		  var iwContent = '<div style="padding:5px; padding-right:20px;">' + address.place_name + '</div>';
+		  var iwRemoveable = true;
 
-	  var addressList = document.getElementById("address-list");
-	  var li = document.createElement("li");
+		  var infowindow = new kakao.maps.InfoWindow({
+		    content: iwContent,
+		    removable: iwRemoveable
+		  });
 
-	  // addressList의 현재 아이템 수를 얻어서 번호를 만듭니다.
-	  var number = addressList.getElementsByTagName("li").length + 1;
+		  kakao.maps.event.addListener(marker, "click", function () {
+		    infowindow.open(map, marker);
+		  });
 
-	  // 주소 앞에 번호를 붙여서 텍스트를 설정합니다.
-	  li.innerText =
-	    number + ". " + address.place_name + " - " + address.address_name;
+		  var addressList = document.getElementById("address-list");
+		  var li = document.createElement("li");
 
-	  li.addEventListener("click", function () {
-	    var moveLatLng = new kakao.maps.LatLng(address.y, address.x);
-	    map.panTo(moveLatLng);
-	  });
+		  // addressList의 현재 아이템 수를 얻어서 번호를 만듭니다.
+		  var number = addressList.getElementsByTagName("li").length + 1;
 
-	  addressList.appendChild(li);
-	}
+		  // 주소 앞에 번호를 붙여서 텍스트를 설정합니다.
+		  li.innerText =
+		    number + ". " + address.place_name + " - " + address.address_name;
 
-	// 중간 지점 계산 버튼 클릭 이벤트
-	document.getElementById("meet-button").addEventListener("click", function () {
-	  if (markers.length >= 2) {
-	    if (centerMarker) {
-	      centerMarker.setMap(null);
-	    }
-	    const centerLatLng = calculateCenter(markers);
-	    centerMarker = new kakao.maps.Marker({
-	      position: centerLatLng,
-	      image: new kakao.maps.MarkerImage(
-	        "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png",
-	        new kakao.maps.Size(40, 40)
-	      ),
-	    });
-	    centerMarker.setMap(map);
+		  li.addEventListener("click", function () {
+		    var moveLatLng = new kakao.maps.LatLng(address.y, address.x);
+		    map.panTo(moveLatLng);
+		  });
 
-	    getAddressFromLatLng(
-	      centerLatLng.getLat(),
-	      centerLatLng.getLng(),
-	      function (result) {
-	        const address = result.address;
-	        const roadAddress = result.roadAddress;
-	        const title =
-	          "중간 지점 - " +
-	          address.address +
-	          (address.roadAddress ? " (" + address.roadAddress + ")" : "");
+		  addressList.appendChild(li);
+		} 
 
-	        kakao.maps.event.addListener(centerMarker, "click", function () {
-	          displayInfowindow(centerMarker, title);
-	        });
-	      }
-	    );
-	    showCenterAddress(centerLatLng);
-	  } else {
-	    alert("적어도 2개의 마커가 필요합니다.");
-	  }
-	});
+
+
+	
 
 	// 리셋 버튼 클릭 이벤트
 	document.getElementById("reset-button").addEventListener("click", function () {
@@ -439,8 +419,8 @@ button:focus {
 	    centerMarker = new kakao.maps.Marker({
 	      position: centerLatLng,
 	      image: new kakao.maps.MarkerImage(
-	        "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png",
-	        new kakao.maps.Size(40, 40)
+	    		  "/img/MidLocation_Marker.png",
+	        new kakao.maps.Size(50, 50)
 	      ),
 	    });
 	    centerMarker.setMap(map);
@@ -552,17 +532,25 @@ button:focus {
 	    var marker = new kakao.maps.Marker({
 	      position: latlng,
 	      image: new kakao.maps.MarkerImage(
-	        "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png",
-	        new kakao.maps.Size(24, 35)
+	    		  "/img/Famous_Marker.png",
+	        new kakao.maps.Size(35, 35)
 	      ),
 	    });
 	    marker.setMap(map);
 	    restaurantMarkers.push(marker); // Add the marker to the array
 
 	    kakao.maps.event.addListener(marker, "click", function () {
-	      displayInfowindow(marker, restaurant.place_name);
+	        var iwContent = '<div style="padding:5px;">' + restaurant.place_name + 
+	            '<br><a href="https://map.kakao.com/link/to/' + restaurant.place_name + ',' + restaurant.y + ',' + restaurant.x + 
+	            '" style="color:blue" target="_blank">길찾기</a>' + '</div>';
+			var iwRemovable = true;
+	        var infowindow = new kakao.maps.InfoWindow({
+	            content: iwContent,
+	            removable : iwRemovable
+	        });
+	        infowindow.open(map, marker);
 	    });
-
+	    
 	    // Add restaurant to the list
 	    const li = document.createElement("li");
 	    li.textContent = `${index + 1}. ${restaurant.place_name} - ${
@@ -577,7 +565,8 @@ button:focus {
 	
 	// 전역 변수로 마커 객체 선언
 	var myLocationMarker = null;
-
+	
+	// 이미 등록된 위치 추가 기능
 	function addMarkerFromAddress() {
 	    // 이미 마커가 추가되었다면 함수를 종료
 	    if (myLocationMarker !== null) {
@@ -589,6 +578,8 @@ button:focus {
 	    fetch("/getRoadAddress")
 	    .then(response => response.text())
 	    .then(roadAddress => {
+	        console.log("Road Address: ", roadAddress);
+
 	        // 주소로 좌표를 검색
 	        geocoder.addressSearch(roadAddress, function(result, status) {
 	            // 정상적으로 검색이 완료됐으면
@@ -598,15 +589,46 @@ button:focus {
 	                // 결과값으로 받은 위치를 마커로 표시
 	                myLocationMarker = new kakao.maps.Marker({
 	                    map: map,
-	                    position: coords
+	                    position: coords,
+	                    image: new kakao.maps.MarkerImage(
+	          	    		  "/img/MyLocation_Marker.png",
+	          	        new kakao.maps.Size(40, 40)
+	          	      )
 	                });
-					markers.push(myLocationMarker);
+
+	                // 마커를 markers 배열에 추가
+	                markers.push(myLocationMarker);
+
+	                // 인포윈도우 추가
+	                var iwContent = '<div style="padding:5px; padding-right:20px;">' + roadAddress + '</div>';
+	                var iwRemoveable = true;
+
+	                var infowindow = new kakao.maps.InfoWindow({
+	                    content: iwContent,
+	                    removable: iwRemoveable
+	                });
+
+	                kakao.maps.event.addListener(myLocationMarker, "click", function () {
+	                    infowindow.open(map, myLocationMarker);
+	                });
+
 	                // 지도의 중심을 결과값으로 받은 위치로 이동
 	                map.setCenter(coords);
+
+	                // 주소 목록에 추가
+	                var addressList = document.getElementById("address-list");
+	                var li = document.createElement("li");
+	                var number = addressList.getElementsByTagName("li").length + 1;
+	                li.innerText = number + ". " + roadAddress;
+	                li.addEventListener("click", function () {
+	                    map.panTo(coords);
+	                });
+	                addressList.appendChild(li);
 	            }
 	        });
 	    });
 	}
+
 
 
 	
