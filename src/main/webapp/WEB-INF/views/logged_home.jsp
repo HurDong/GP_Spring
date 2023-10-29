@@ -441,6 +441,7 @@ button:focus {
 	    alert("적어도 2개의 마커가 필요합니다.");
 	  }
 	});
+	
 	// 맛집 검색 버튼 클릭 이벤트
 	document
 	  .getElementById("search-restaurants")
@@ -453,49 +454,8 @@ button:focus {
 	    }
 	  });
 
-	let currentRestaurantPage = 0;
-	const restaurantsPerPage = 5;
-	let restaurants = []; // 이 배열은 실제 맛집 데이터를 포함해야 합니다.
+	
 
-	function showRestaurants() {
-	  const start = currentRestaurantPage * restaurantsPerPage;
-	  const end = start + restaurantsPerPage;
-
-	  const restaurantsToShow = restaurants.slice(start, end);
-	  const restaurantList = document.getElementById("restaurant-list");
-
-	  restaurantList.innerHTML = ""; // 목록을 비웁니다.
-
-	  for (let i = 0; i < restaurantsToShow.length; i++) {
-	    const restaurant = restaurantsToShow[i];
-	    const li = document.createElement("li");
-	    li.textContent = `${start + i + 1}. ${restaurant.place_name} - ${
-	      restaurant.address_name
-	    }`;
-	    li.addEventListener("click", function () {
-	      map.panTo(restaurantMarkers[start + i].getPosition());
-	    });
-	    restaurantList.appendChild(li);
-	  }
-	}
-
-	document
-	  .getElementById("prev-restaurants")
-	  .addEventListener("click", function () {
-	    if (currentRestaurantPage > 0) {
-	      currentRestaurantPage--;
-	      showRestaurants();
-	    }
-	  });
-
-	document
-	  .getElementById("next-restaurants")
-	  .addEventListener("click", function () {
-	    if ((currentRestaurantPage + 1) * restaurantsPerPage < restaurants.length) {
-	      currentRestaurantPage++;
-	      showRestaurants();
-	    }
-	  });
 
 	// 맛집 검색 함수
 	function searchRestaurants(keyword, centerLatLng) {
@@ -552,17 +512,43 @@ button:focus {
 	    });
 	    
 	    // Add restaurant to the list
-	    const li = document.createElement("li");
+/* 	    const li = document.createElement("li");
 	    li.textContent = `${index + 1}. ${restaurant.place_name} - ${
 	      restaurant.address_name
 	    }`;
 	    li.addEventListener("click", function () {
 	      map.panTo(marker.getPosition()); // Move the map to the marker's position
 	    });
-	    restaurantList.appendChild(li);
+	    restaurantList.appendChild(li); */
 	  });
 	}
 	
+	let currentRestaurantPage = 0;
+	
+	const restaurantsPerPage = 5;
+	
+	let restaurants = []; // 이 배열은 실제 맛집 데이터를 포함해야 합니다.
+
+	// 맛집 리스트를 보여주는 함수
+	function showRestaurants() {
+	  // 먼저 이전에 있던 리스트를 모두 지운다.
+	  const restaurantList = document.getElementById("restaurant-list");
+	  restaurantList.innerHTML = "";
+
+	  // 전역 변수 restaurants의 정보를 사용하여 리스트를 만든다.
+	  restaurantMarkers.forEach((marker,index) => {
+		const restaurant = restaurants[index];
+		console.log(restaurant);
+	    const listItem = document.createElement("li");
+	    listItem.textContent = restaurant.place_name; // place_name을 li에 넣습니다.
+	 	// 리스트 아이템 클릭 시, 지도가 해당 마커 위치로 이동
+	    listItem.addEventListener("click", function () {
+	      map.panTo(marker.getPosition());
+	    });
+	    restaurantList.appendChild(listItem);
+	  });
+	}
+
 	// 전역 변수로 마커 객체 선언
 	var myLocationMarker = null;
 	
