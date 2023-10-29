@@ -308,7 +308,7 @@ button:focus {
 		  addressList.appendChild(li);
 		}
 
-	// 중간 지점 계산 버튼 클릭 이벤트
+/* 	// 중간 지점 계산 버튼 클릭 이벤트
 	document.getElementById("meet-button").addEventListener("click", function () {
 	  if (markers.length >= 2) {
 	    if (centerMarker) {
@@ -344,7 +344,7 @@ button:focus {
 	  } else {
 	    alert("적어도 2개의 마커가 필요합니다.");
 	  }
-	});
+	}); */
 
 	// 리셋 버튼 클릭 이벤트
 	document.getElementById("reset-button").addEventListener("click", function () {
