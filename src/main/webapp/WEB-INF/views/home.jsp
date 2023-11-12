@@ -274,7 +274,13 @@ button:focus {
 	// 주소에 마커 추가 함수
 	function addAddressMarker(address) {
 		  var latlng = new kakao.maps.LatLng(address.y, address.x);
-		  var marker = new kakao.maps.Marker({ position: latlng });
+		  var marker = new kakao.maps.Marker({
+			  position: latlng,
+			  image: new kakao.maps.MarkerImage(
+	    		  "/img/Location_Marker.png",
+	  	        new kakao.maps.Size(40, 40)
+	  	      )
+		  });
 		  marker.setMap(map);
 		  markers.push(marker);
 
@@ -306,45 +312,11 @@ button:focus {
 		  });
 
 		  addressList.appendChild(li);
-		}
+		} 
 
-/* 	// 중간 지점 계산 버튼 클릭 이벤트
-	document.getElementById("meet-button").addEventListener("click", function () {
-	  if (markers.length >= 2) {
-	    if (centerMarker) {
-	      centerMarker.setMap(null);
-	    }
-	    const centerLatLng = calculateCenter(markers);
-	    centerMarker = new kakao.maps.Marker({
-	      position: centerLatLng,
-	      image: new kakao.maps.MarkerImage(
-	        "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png",
-	        new kakao.maps.Size(40, 40)
-	      ),
-	    });
-	    centerMarker.setMap(map);
 
-	    getAddressFromLatLng(
-	      centerLatLng.getLat(),
-	      centerLatLng.getLng(),
-	      function (result) {
-	        const address = result.address;
-	        const roadAddress = result.roadAddress;
-	        const title =
-	          "중간 지점 - " +
-	          address.address +
-	          (address.roadAddress ? " (" + address.roadAddress + ")" : "");
 
-	        kakao.maps.event.addListener(centerMarker, "click", function () {
-	          displayInfowindow(centerMarker, title);
-	        });
-	      }
-	    );
-	    showCenterAddress(centerLatLng);
-	  } else {
-	    alert("적어도 2개의 마커가 필요합니다.");
-	  }
-	}); */
+	
 
 	// 리셋 버튼 클릭 이벤트
 	document.getElementById("reset-button").addEventListener("click", function () {
@@ -432,8 +404,8 @@ button:focus {
 	    centerMarker = new kakao.maps.Marker({
 	      position: centerLatLng,
 	      image: new kakao.maps.MarkerImage(
-	        "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png",
-	        new kakao.maps.Size(40, 40)
+	    		  "/img/MidLocation_Marker.png",
+	        new kakao.maps.Size(50, 50)
 	      ),
 	    });
 	    centerMarker.setMap(map);
@@ -454,6 +426,7 @@ button:focus {
 	    alert("적어도 2개의 마커가 필요합니다.");
 	  }
 	});
+	
 	// 맛집 검색 버튼 클릭 이벤트
 	document
 	  .getElementById("search-restaurants")
@@ -466,49 +439,8 @@ button:focus {
 	    }
 	  });
 
-	let currentRestaurantPage = 0;
-	const restaurantsPerPage = 5;
-	let restaurants = []; // 이 배열은 실제 맛집 데이터를 포함해야 합니다.
+	
 
-	function showRestaurants() {
-	  const start = currentRestaurantPage * restaurantsPerPage;
-	  const end = start + restaurantsPerPage;
-
-	  const restaurantsToShow = restaurants.slice(start, end);
-	  const restaurantList = document.getElementById("restaurant-list");
-
-	  restaurantList.innerHTML = ""; // 목록을 비웁니다.
-
-	  for (let i = 0; i < restaurantsToShow.length; i++) {
-	    const restaurant = restaurantsToShow[i];
-	    const li = document.createElement("li");
-	    li.textContent = `${start + i + 1}. ${restaurant.place_name} - ${
-	      restaurant.address_name
-	    }`;
-	    li.addEventListener("click", function () {
-	      map.panTo(restaurantMarkers[start + i].getPosition());
-	    });
-	    restaurantList.appendChild(li);
-	  }
-	}
-
-	document
-	  .getElementById("prev-restaurants")
-	  .addEventListener("click", function () {
-	    if (currentRestaurantPage > 0) {
-	      currentRestaurantPage--;
-	      showRestaurants();
-	    }
-	  });
-
-	document
-	  .getElementById("next-restaurants")
-	  .addEventListener("click", function () {
-	    if ((currentRestaurantPage + 1) * restaurantsPerPage < restaurants.length) {
-	      currentRestaurantPage++;
-	      showRestaurants();
-	    }
-	  });
 
 	// 맛집 검색 함수
 	function searchRestaurants(keyword, centerLatLng) {
@@ -545,26 +477,60 @@ button:focus {
 	    var marker = new kakao.maps.Marker({
 	      position: latlng,
 	      image: new kakao.maps.MarkerImage(
-	        "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png",
-	        new kakao.maps.Size(24, 35)
+	    		  "/img/Famous_Marker.png",
+	        new kakao.maps.Size(35, 35)
 	      ),
 	    });
 	    marker.setMap(map);
 	    restaurantMarkers.push(marker); // Add the marker to the array
 
 	    kakao.maps.event.addListener(marker, "click", function () {
-	      displayInfowindow(marker, restaurant.place_name);
+	        var iwContent = '<div style="padding:5px;">' + restaurant.place_name + 
+	            '<br><a href="https://map.kakao.com/link/to/' + restaurant.place_name + ',' + restaurant.y + ',' + restaurant.x + 
+	            '" style="color:blue" target="_blank">길찾기</a>' + '</div>';
+			var iwRemovable = true;
+	        var infowindow = new kakao.maps.InfoWindow({
+	            content: iwContent,
+	            removable : iwRemovable
+	        });
+	        infowindow.open(map, marker);
 	    });
-
+	    
 	    // Add restaurant to the list
-	    const li = document.createElement("li");
+/* 	    const li = document.createElement("li");
 	    li.textContent = `${index + 1}. ${restaurant.place_name} - ${
 	      restaurant.address_name
 	    }`;
 	    li.addEventListener("click", function () {
 	      map.panTo(marker.getPosition()); // Move the map to the marker's position
 	    });
-	    restaurantList.appendChild(li);
+	    restaurantList.appendChild(li); */
+	  });
+	}
+	
+	let currentRestaurantPage = 0;
+	
+	const restaurantsPerPage = 5;
+	
+	let restaurants = []; // 이 배열은 실제 맛집 데이터를 포함해야 합니다.
+
+	// 맛집 리스트를 보여주는 함수
+	function showRestaurants() {
+	  // 먼저 이전에 있던 리스트를 모두 지운다.
+	  const restaurantList = document.getElementById("restaurant-list");
+	  restaurantList.innerHTML = "";
+
+	  // 전역 변수 restaurants의 정보를 사용하여 리스트를 만든다.
+	  restaurantMarkers.forEach((marker,index) => {
+		const restaurant = restaurants[index];
+		console.log(restaurant);
+	    const listItem = document.createElement("li");
+	    listItem.textContent = restaurant.place_name; // place_name을 li에 넣습니다.
+	 	// 리스트 아이템 클릭 시, 지도가 해당 마커 위치로 이동
+	    listItem.addEventListener("click", function () {
+	      map.panTo(marker.getPosition());
+	    });
+	    restaurantList.appendChild(listItem);
 	  });
 	}
 
